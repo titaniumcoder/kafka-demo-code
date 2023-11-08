@@ -1,0 +1,52 @@
+[
+  {
+    "aliases": [
+      "user"
+    ],
+    "doc": "A User with email in our structure",
+    "fields": [
+      {
+        "doc": "The username",
+        "name": "username",
+        "type": "string"
+      },
+      {
+        "doc": "The Email-Address of the user",
+        "name": "email",
+        "type": "string"
+      }
+    ],
+    "name": "User",
+    "namespace": "demo",
+    "type": "record"
+  },
+  {
+    "aliases": [
+      "access"
+    ],
+    "doc": "Access-Log",
+    "fields": [
+      {
+        "doc": "The username",
+        "name": "username",
+        "type": "string"
+      },
+      {
+        "doc": "The IP Address of the access",
+        "name": "ip",
+        "type": "string"
+      },
+      {
+        "doc": "When the access happened.",
+        "name": "datetime",
+        "type":  {
+            "type": "long",
+        "logicalType": "timestamp-millis"
+        }
+      }
+    ],
+    "name": "Access",
+    "namespace": "demo",
+    "type": "record"
+  }
+]

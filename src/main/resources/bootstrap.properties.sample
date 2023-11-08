@@ -1,0 +1,38 @@
+# Required connection configs for Kafka producer, consumer, and admin
+bootstrap.servers=pkc-vzj95.eu-central-2.aws.confluent.cloud:9092
+security.protocol=SASL_SSL
+sasl.jaas.config=org.apache.kafka.common.security.plain.PlainLoginModule required username='{{ CLUSTER_API_KEY }}' password='{{ CLUSTER_API_SECRET }}';
+sasl.mechanism=PLAIN
+
+# Required for correctness in Apache Kafka clients prior to 2.6
+client.dns.lookup=use_all_dns_ips
+
+# Best practice for higher availability in Apache Kafka clients prior to 3.0
+session.timeout.ms=45000
+
+# Best practice for Kafka producer to prevent data loss
+acks=all
+
+# Serializers and Deserializers and Serdes
+key.serializer=org.apache.kafka.common.serialization.StringSerializer
+value.serializer=io.confluent.kafka.serializers.KafkaAvroSerializer
+key.deserializer=org.apache.kafka.common.serialization.StringDeserializer
+value.deserializer=io.confluent.kafka.serializers.KafkaAvroDeserializer
+specific.avro.reader=true
+
+# Required connection configs for Confluent Cloud Schema Registry
+schema.registry.url=https://{{ SR_ENDPOINT }}
+basic.auth.credentials.source=USER_INFO
+basic.auth.user.info={{ SR_API_KEY }}:{{ SR_API_SECRET }}
+
+# To allow multiple schemas via union
+auto.register.schemas=false
+use.latest.version=true
+
+# Streams Config
+application.id=kafka-demo-code-streams
+
+# Consumer Config
+group.id=kafka-demo-consumer
+auto.offset.reset=earliest
+enable.auto.commit=false
